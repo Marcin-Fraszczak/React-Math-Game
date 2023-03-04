@@ -1,5 +1,5 @@
-import React, {useState} from "react"
-import {Buttons} from "./Buttons";
+import React, {useState, useRef} from "react"
+import {Buttons} from "./Buttons"
 import {Timer} from "./Timer"
 import {timeLimit, noOfAnswers, actions, getRandomElement, getRandomNumber, shuffle} from "./config"
 
@@ -7,6 +7,7 @@ const MathQuestionGame = () => {
     const [isRunning, setIsRunning] = useState(false)
     const [data, setData] = useState(null)
     const [round, setRound] = useState(0)
+    const buttonRef = useRef(null)
 
     const prepareData = () => {
         const [a, b] = [getRandomNumber(1, 10), getRandomNumber(1, 10)]
@@ -38,6 +39,7 @@ const MathQuestionGame = () => {
     }
 
     const endGame = ({result}) => {
+        buttonRef.current.focus()
         setIsRunning(false)
         setData(prevData => {
             return {
@@ -49,8 +51,8 @@ const MathQuestionGame = () => {
 
     return (
         <div>
-            <button className='btn btn-primary m-2' style={{width: '8em'}}
-                    onClick={newGame}>{data ? 'Play again' : 'Start'}</button>
+            <button className='btn btn-primary m-2' style={{width: '10em'}} autofocus='true' ref={buttonRef}
+                    onClick={newGame}>{data ? 'Play again  [Enter]' : 'Start  [Enter]'}</button>
             <h1 className='m-2'>{isRunning ? `${data.a} ${data.action} ${data.b} =` : data ? data.result : 'Get ready'}</h1>
             <Buttons data={data} isrunning={isRunning} endgame={endGame} butnumber={noOfAnswers}/>
             <Timer isrunning={isRunning} timelimit={timeLimit} endgame={endGame} parentround={round}/>
