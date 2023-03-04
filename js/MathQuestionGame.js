@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {Buttons} from "./Button";
+import {Buttons} from "./Buttons";
 import {Timer} from "./Timer"
 import {timeLimit, noOfAnswers, actions, getRandomElement, getRandomNumber, shuffle} from "./config"
 
@@ -12,7 +12,7 @@ const MathQuestionGame = () => {
         const [a, b] = [getRandomNumber(1, 10), getRandomNumber(1, 10)]
         const action = getRandomElement(actions)
         const correctAnswer = Math.round(eval(`${a} ${action} ${b}`) * 100) / 100
-        const answers = selectAnswers({correctAnswer: correctAnswer, spread: 5, noOfAnswers: noOfAnswers - 1})
+        const answers = selectAnswers({correctAnswer: correctAnswer, spread: 3, noOfAnswers: noOfAnswers - 1})
         return {a: a, b: b, action: action, correctAnswer: correctAnswer, answers: answers}
     }
 
@@ -22,11 +22,11 @@ const MathQuestionGame = () => {
         }
         let pool = []
         for (let i = correctAnswer - spread; i <= correctAnswer + spread; i++) {
-            i !== correctAnswer && pool.push(i)
+            i = Math.round(i * 100) / 100
+            i - correctAnswer && pool.push(i)
         }
         shuffle(pool)
         let answers = [...pool.slice(0, noOfAnswers), correctAnswer]
-        answers = answers.map(item => Math.round(item * 100) / 100)
         shuffle(answers)
         return answers
     }
@@ -47,7 +47,6 @@ const MathQuestionGame = () => {
         })
     }
 
-    // console.log('parent rendering')
     return (
         <div>
             <button className='btn btn-primary m-2' style={{width: '8em'}}

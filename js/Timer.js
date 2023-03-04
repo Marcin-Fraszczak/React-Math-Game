@@ -26,7 +26,6 @@ const Timer = ({isrunning, timelimit, endgame, parentround}) => {
         return ('0000' + t.toFixed(1)).slice(-4)
     }
 
-    // console.log("timer rendering")
     return <h3 className='m-2'>Timer: {isrunning ? prettyDisplayTime(time) : '00.0'}</h3>
 }
 
