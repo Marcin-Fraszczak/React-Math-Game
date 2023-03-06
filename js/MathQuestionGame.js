@@ -51,7 +51,7 @@ const MathQuestionGame = () => {
 
     return (
         <div>
-            <button className='btn btn-primary m-2' style={{width: '10em'}} autofocus='true' ref={buttonRef}
+            <button className='btn btn-primary m-2' style={{width: '10em'}} autoFocus={true} ref={buttonRef}
                     onClick={newGame}>{data ? 'Play again  [Enter]' : 'Start  [Enter]'}</button>
             <h1 className='m-2'>{isRunning ? `${data.a} ${data.action} ${data.b} =` : data ? data.result : 'Get ready'}</h1>
             <Buttons data={data} isrunning={isRunning} endgame={endGame} butnumber={noOfAnswers}/>
